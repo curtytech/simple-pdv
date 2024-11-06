@@ -1,0 +1,2 @@
+php artisan make:controller BuyController --resource --model=Buy
+php artisan make:controller SellController --resource --model=Sell
