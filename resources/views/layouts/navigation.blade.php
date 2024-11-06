@@ -31,6 +31,11 @@
                         {{ __('Vendas') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('cart')" :active="request()->routeIs('cart')">
+                        {{ __('Carrinho') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -93,6 +98,9 @@
             </x-responsive-nav-link>          
             <x-responsive-nav-link :href="route('sells')" :active="request()->routeIs('sells')">
                 {{ __('Vendas') }}
+            </x-responsive-nav-link>          
+            <x-responsive-nav-link :href="route('cart')" :active="request()->routeIs('cart')">
+                {{ __('Carrinho') }}
             </x-responsive-nav-link>          
         </div>
 

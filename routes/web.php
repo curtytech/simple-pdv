@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BuyController;
 use App\Http\Controllers\SellController;
+use App\Http\Controllers\CartController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,6 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/sells', [SellController::class, 'index'])->name('sells');
     Route::post('/sells/store', [SellController::class, 'store'])->name('sells.store');
     Route::put('/sells/{sell}', [SellController::class, 'update'])->name('sells.update');
+
+    Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
 
 });
