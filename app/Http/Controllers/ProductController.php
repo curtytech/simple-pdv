@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Product;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -12,11 +13,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data = Product::all();
-    
-        return view('products.index', compact('data'));
+        return view('products.index', ['data' => Product::all()]);
     }
-    
 
     /**
      * Show the form for creating a new resource.
@@ -29,26 +27,19 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
-        // Validação dos dados do produto
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'sell_price' => 'required|numeric|min:0',
-            'description' => 'nullable|string',
-            'barcode' => 'nullable|integer',
+        $validatedData = $request->validated();
+
+        Product::create([
+            'name' => $validatedData['name'],
+            'sell_price' => $validatedData['sell_price'],
+            'barcode' => $validatedData['barcode'],
+            'description' => $validatedData['description'] ?? null,
         ]);
 
-        // Criação do novo produto no banco de dados
-        $product = new Product();
-        $product->name = $validatedData['name'];
-        $product->sell_price = $validatedData['sell_price'];
-        $product->barcode = $validatedData['barcode'];
-        $product->description = $validatedData['description'] ?? null;
-        $product->save();
-
-        // Redireciona com mensagem de sucesso
-        return redirect()->route('products')->with('success', 'Produto criado com sucesso!');
+        return to_route('products')
+            ->with('success', 'Produto criado com sucesso!');
     }
 
     /**
@@ -70,25 +61,18 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductUpdateRequest $request, Product $product)
     {
-        // Validação dos dados do produto
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'sell_price' => 'required|numeric|min:0',
-            'description' => 'nullable|string',
-            'barcode' => 'nullable|integer',
+        $validatedData = $request->validated();
+        $product->update([
+            'name' => $validatedData['name'],
+            'sell_price' => $validatedData['sell_price'],
+            'barcode' => $validatedData['barcode'],
+            'description' => $validatedData['description'] ?? null,
         ]);
-    
-        // Atualização dos dados do produto
-        $product->name = $validatedData['name'];
-        $product->sell_price = $validatedData['sell_price'];
-        $product->barcode = $validatedData['barcode'];
-        $product->description = $validatedData['description'] ?? null;
-        $product->save();
-    
-        // Redireciona com mensagem de sucesso
-        return redirect()->route('products')->with('success', 'Produto atualizado com sucesso!');
+
+        return to_route('products')
+            ->with('success', 'Produto atualizado com sucesso!');
     }
 
     /**
