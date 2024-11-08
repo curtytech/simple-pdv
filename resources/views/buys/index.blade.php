@@ -19,32 +19,29 @@
                     <table class="min-w-full bg-white dark:bg-gray-800">
                         <thead>
                             <tr class="text-gray-800 bg-gray-200 dark:bg-gray-700 dark:text-gray-200">
-                                <th class="px-4 py-2 text-left">Produto</th>
-                                <th class="px-4 py-2 text-left">Comprador</th>
-                                <th class="px-4 py-2 text-left">Preço</th>
-                                <th class="px-4 py-2 text-left">Quantidade</th>
-                                <th class="px-4 py-2 text-left text-center">Ação</th>
+                                <th class="px-4 py-2 text-center">Produto</th>
+                                <th class="px-4 py-2 text-center">Comprador</th>
+                                <th class="px-4 py-2 text-center">Preço</th>
+                                <th class="px-4 py-2 text-center">Quantidade</th>
+                                <th class="px-4 py-2 text-center">Ação</th>
                             </tr>
                         </thead>
                         <tbody class="text-gray-600 dark:text-gray-300">
                             @foreach ($data as $row)
-                                <tr class="hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <td class="px-4 py-2 border-b border-gray-300">{{ $row->product->name }}</td>
-                                    <td class="px-4 py-2 border-b border-gray-300"> {{ $row->user->name }}</td>
-                                    <td class="px-4 py-2 border-b border-gray-300">R$:
-                                        {{ number_format($row->buy_price, 2, ',', '.') }}</td>
-                                    <td class="px-4 py-2 border-b border-gray-300">{{ $row->quantity }}</td>
-                                    <td class="flex gap-3 border-b border-gray-300">
-                                        <a @click="currentProduct = {{ json_encode($row) }}; openEdit = true"
-                                            class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
-                                            <i class="ph ph-pencil"></i> Editar
-                                        </a>
-                                        <button type="button"
-                                            class="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700">
-                                            <i class="ph ph-trash"></i> Excluir
-                                        </button>
-                                    </td>
-                                </tr>
+                            <tr class="hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <td class="px-4 text-center py-2 border-b border-gray-300">{{ $row->product->name }}</td>
+                                <td class="px-4 text-center py-2 border-b border-gray-300"> {{ $row->user->name }}</td>
+                                <td class="px-4 text-center py-2 border-b border-gray-300">R$:
+                                    {{ number_format($row->buy_price, 2, ',', '.') }}
+                                </td>
+                                <td class="px-4 text-center py-2 border-b border-gray-300">{{ $row->quantity }}</td>
+                                <td class="flex gap-3 border-b border-gray-300 justify-center">
+                                    <a @click="currentProduct = {{ json_encode($row) }}; openEdit = true"
+                                        class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+                                        <i class="ph ph-pencil"></i> Editar
+                                    </a>
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -65,7 +62,7 @@
                             class="w-full px-3 py-2 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200">
                             <option value="">Selecione um Usuário</option>
                             @foreach ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -75,7 +72,7 @@
                             class="w-full px-3 py-2 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200">
                             <option value="">Selecione um Produto</option>
                             @foreach ($products as $product)
-                                <option value="{{ $product->id }}">{{ $product->name }}</option>
+                            <option value="{{ $product->id }}">{{ $product->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -117,7 +114,7 @@
                             class="w-full px-3 py-2 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200">
                             <option value="">Selecione um Usuário</option>
                             @foreach ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -127,7 +124,7 @@
                             class="w-full px-3 py-2 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200">
                             <option value="">Selecione um Produto</option>
                             @foreach ($products as $product)
-                                <option value="{{ $product->id }}">{{ $product->name }}</option>
+                            <option value="{{ $product->id }}">{{ $product->name }}</option>
                             @endforeach
                         </select>
                     </div>
