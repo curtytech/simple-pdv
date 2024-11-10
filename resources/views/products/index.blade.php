@@ -29,30 +29,30 @@
 
                         <tbody class="text-gray-600 dark:text-gray-300">
                             @foreach ($data as $row)
-                                <tr class="hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <td class="px-4 text-center py-2 border-b border-gray-300">
-                                        {{ $row->name }}
-                                    </td>
+                            <tr class="hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <td class="px-4 text-center py-2 border-b border-gray-300">
+                                    {{ $row->name }}
+                                </td>
 
-                                    <td class="px-4 text-center py-2 border-b border-gray-300">
-                                        R$ {{ number_format($row->sell_price, 2, ',', '.') }}
-                                    </td>
+                                <td class="px-4 text-center py-2 border-b border-gray-300">
+                                    R$ {{ number_format($row->sell_price, 2, ',', '.') }}
+                                </td>
 
-                                    <td class="px-4 text-center py-2 border-b border-gray-300">
-                                        {{ $row->description }}
-                                    </td>
+                                <td class="px-4 text-center py-2 border-b border-gray-300">
+                                    {{ $row->description }}
+                                </td>
 
-                                    <td class="px-4 text-center py-2 border-b border-gray-300">
-                                        {{ $row->barcode }}
-                                    </td>
-                                    <td class="flex gap-3 text-center border-b border-gray-300 justify-center">
-                                        <a @click="currentProduct = {{ json_encode($row) }}; openEdit = true"
-                                            class="px-4  py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
-                                            <i class="ph ph-pencil"></i>
-                                            Editar
-                                        </a>
-                                    </td>
-                                </tr>
+                                <td class="px-4 text-center py-2 border-b border-gray-300">
+                                    {{ $row->barcode }}
+                                </td>
+                                <td class="flex gap-3 text-center border-b border-gray-300 justify-center">
+                                    <a @click="currentProduct = {{ json_encode($row) }}; openEdit = true"
+                                        class="my-2 px-4 py-1 cursor-pointer font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+                                        <i class="ph ph-pencil"></i>
+                                        Editar
+                                    </a>
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -67,13 +67,52 @@
                 <h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-gray-200">Novo Produto</h2>
                 <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="mb-4">
-                        <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-gray-300">Nome do
-                            Produto</label>
-                        <input type="text" name="name"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
-                            placeholder="Digite o nome do produto">
+                    <div class="mb-4 flex">
+                        <div class="flex flex-row flex-grow  mr-4 w-1/4 ">
+                            <div x-data="{ files: null }" id="FileUpload"
+                                class="block w-full py-2 px-3 relative bg-gray-700 appearance-none border-2 border-gray-300 border-solid rounded-md hover:shadow-outline-gray">
+                                <input type="file" multiple name="image"
+                                    class="absolute inset-0 z-50 m-0 p-0 w-full h-full outline-none opacity-0"
+                                    x-on:change="files = $event.target.files; console.log($event.target.files);"
+                                    x-on:dragover="$el.classList.add('active')" x-on:dragleave="$el.classList.remove('active')" x-on:drop="$el.classList.remove('active')">
+                                <template x-if="files !== null">
+                                    <div class="flex flex-col space-y-1">
+                                        <template x-for="(_,index) in Array.from({ length: files.length })">
+                                            <div class="flex flex-row items-center space-x-2">
+                                                <template
+                                                    x-if="files[index].type.includes('audio/')"><i class="far fa-file-audio fa-fw"></i></template>
+                                                <template
+                                                    x-if="files[index].type.includes('application/')"><i class="far fa-file-alt fa-fw"></i></template>
+                                                <template
+                                                    x-if="files[index].type.includes('image/')"><i class="far fa-file-image fa-fw"></i></template>
+                                                <template
+                                                    x-if="files[index].type.includes('video/')"><i class="far fa-file-video fa-fw"></i></template>
+                                                <span class="font-medium text-gray-900" x-text="files[index].name">Uploading</span>
+                                                <span class="text-xs self-end text-gray-500" x-text="filesize(files[index].size)">...</span>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
+                                <template x-if="files === null">
+                                    <div class="flex flex-col space-y-1 items-center justify-center" title="Arraste ou selecione uma imagem.">
+                                        <i class="ph ph-cloud-arrow-up text-5xl text-white"></i>
+                                        <!-- <p class="text-base text-white">Arraste ou selecione uma imagem.</p> -->
+                                        <!-- <a href="javascript:void(0)"
+                                                class="flex items-center mx-auto py-2 px-4 text-white text-center font-medium border border-transparent rounded-md outline-none bg-red-700">Select
+                                                a file</a> -->
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                        <div class="w-3/4">
+                            <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-gray-300">Nome do
+                                Produto</label>
+                            <input type="text" name="name"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+                                placeholder="Digite o nome do produto">
+                        </div>
                     </div>
+
 
                     <div class="mb-4">
                         <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-gray-300">Código de
@@ -117,12 +156,51 @@
                     enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <div class="mb-4">
-                        <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-gray-300">Nome do
-                            Produto</label>
-                        <input type="text" name="name" x-model="currentProduct.name"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
-                            placeholder="Digite o nome do produto">
+                
+                    <div class="mb-4 flex">
+                        <div class="flex flex-row flex-grow  mr-4 w-1/4 ">
+                            <div x-data="{ files: null }" id="FileUpload"
+                                class="block w-full py-2 px-3 relative bg-gray-700 appearance-none border-2 border-gray-300 border-solid rounded-md hover:shadow-outline-gray">
+                                <input type="file" multiple
+                                    class="absolute inset-0 z-50 m-0 p-0 w-full h-full outline-none opacity-0"
+                                    x-on:change="files = $event.target.files; console.log($event.target.files);"
+                                    x-on:dragover="$el.classList.add('active')" x-on:dragleave="$el.classList.remove('active')" x-on:drop="$el.classList.remove('active')">
+                                <template x-if="files !== null">
+                                    <div class="flex flex-col space-y-1">
+                                        <template x-for="(_,index) in Array.from({ length: files.length })">
+                                            <div class="flex flex-row items-center space-x-2">
+                                                <template
+                                                    x-if="files[index].type.includes('audio/')"><i class="far fa-file-audio fa-fw"></i></template>
+                                                <template
+                                                    x-if="files[index].type.includes('application/')"><i class="far fa-file-alt fa-fw"></i></template>
+                                                <template
+                                                    x-if="files[index].type.includes('image/')"><i class="far fa-file-image fa-fw"></i></template>
+                                                <template
+                                                    x-if="files[index].type.includes('video/')"><i class="far fa-file-video fa-fw"></i></template>
+                                                <span class="font-medium text-gray-900" x-text="files[index].name">Uploading</span>
+                                                <span class="text-xs self-end text-gray-500" x-text="filesize(files[index].size)">...</span>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
+                                <template x-if="files === null">
+                                    <div class="flex flex-col space-y-1 items-center justify-center" title="Arraste ou selecione uma imagem.">
+                                        <i class="ph ph-cloud-arrow-up text-5xl text-white"></i>
+                                        <!-- <p class="text-base text-white">Arraste ou selecione uma imagem.</p> -->
+                                        <!-- <a href="javascript:void(0)"
+                                                class="flex items-center mx-auto py-2 px-4 text-white text-center font-medium border border-transparent rounded-md outline-none bg-red-700">Select
+                                                a file</a> -->
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                        <div class="w-3/4">
+                            <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-gray-300">Nome do
+                                Produto</label>
+                                <input type="text" name="name" x-model="currentProduct.name"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+                                placeholder="Digite o nome do produto">
+                        </div>
                     </div>
 
                     <div class="mb-4">

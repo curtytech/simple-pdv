@@ -31,11 +31,18 @@ class ProductController extends Controller
     {
         $validatedData = $request->validated();
 
+        // if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        //     $validatedData['image'] = $request->file('image')->store('products');
+        // }
+
+        // dd($validatedData);
+
         Product::create([
             'name' => $validatedData['name'],
             'sell_price' => $validatedData['sell_price'],
             'barcode' => $validatedData['barcode'],
             'description' => $validatedData['description'] ?? null,
+            // 'image' => $validatedData['image'],
         ]);
 
         return to_route('products')

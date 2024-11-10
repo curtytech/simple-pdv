@@ -33,10 +33,7 @@
                                 <td class="flex gap-3 border-b border-gray-300 justify-center">
                                     <a @click="currentProduct = {{ json_encode($row) }}; openEdit = true" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                         <i class="ph ph-pencil"></i> Editar
-                                    </a>
-                                    <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                        <i class="ph ph-trash"></i> Excluir
-                                    </button>
+                                    </a>                                   
                                 </td>
                             </tr>
                             @endforeach

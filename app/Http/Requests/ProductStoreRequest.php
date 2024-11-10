@@ -26,6 +26,7 @@ class ProductStoreRequest extends FormRequest
             'sell_price' => 'required|numeric|min:0',
             'description' => 'nullable|string',
             'barcode' => 'nullable|integer',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 
@@ -38,6 +39,7 @@ class ProductStoreRequest extends FormRequest
             'sell_price.min' => 'O preço de venda do produto deve ser maior que zero.',
             'description.nullable' => 'A descrição do produto é obrigatória.',
             'barcode.nullable' => 'O código de barras do produto é obrigatório.',
+            'image.required' => 'A imagem do produto é obrigatória.',
         ];
     }
 }
