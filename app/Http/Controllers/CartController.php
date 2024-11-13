@@ -12,13 +12,13 @@ class CartController extends Controller
      */
     public function index()
     {
-        // $data = Buy::join('products', 'buys.product_id', '=', 'products.id')
-        //     ->join('users', 'buys.user_id', '=', 'users.id')
-        //     ->select('buys.*', 'products.*', 'users.*')
-        //     ->get();
+        $data = Buy::join('products', 'buys.product_id', '=', 'products.id')
+            ->join('users', 'buys.user_id', '=', 'users.id')
+            ->select('products.*')
+            ->get();
+            // ->where('products.stock', '>', 0);
+        // dd($data);
+        return view('cart.index', compact('data'));
 
-        return view('cart.index', [
-            'products' => Buy::with(['product', 'user'])->get(),
-        ]);
     }
 }

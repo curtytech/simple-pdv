@@ -11,38 +11,31 @@
                 <div class="py-12">
                     <div class="flex w-full gap-6 mx-auto mb-6 max-w-7xl sm:px-6 lg:px-8">
                         <div class="flex flex-col w-3/4">
-                            <div
-                                class="flex flex-row items-center justify-between w-full h-32 px-6 bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
+                            <div class="flex flex-row items-center justify-between w-full h-32 px-6 bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                                 <select name="product_id"
+                                    id="productSelect"
                                     class="w-full py-2 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200">
-                                    <option value="">Selecione um Produto</option>
+                                    <option selected disabled value="">Selecione um Produto</option>
+                                    @foreach ($data as $row)
+                                    <option class="text-white bg-gray-600" value="{{ $row->id }}" data-price="{{ $row->sell_price }}">
+                                        {{ $row->name }}
+                                        R$ {{ $row->sell_price }}
+                                    </option>
+                                    @endforeach
                                 </select>
                                 <p class="p-6 text-white dark:text-gray-100">
-                                    <input type="number" class='text-white bg-gray-600 rounded' />
+                                    <input id="quantityInput" type="number" class='text-white bg-gray-600 rounded' />
                                 </p>
-                                <button
+                                <button id="addProductButton"
                                     class="justify-center w-1/4 p-2 mx-auto bg-gray-600 rounded-lg dark:text-gray-100">
                                     <i class="ph ph-plus"></i>
                                 </button>
                             </div>
-                            <div
-                                class="flex flex-row items-center justify-between w-3/4 h-32 px-6 bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
-                                <img src="https://picsum.photos/200/300" class='w-32 h-32 p-4 rounded-full'
-                                    alt="" />
-                                <p class="p-6 text-gray-900 dark:text-gray-100">
-                                    Name
-                                </p>
-                                <p class="p-6 text-gray-900 dark:text-gray-100">
-                                    <input type="number" class='text-black bg-gray-600 rounded' />
-                                </p>
-                                <p class="p-6 text-gray-900 dark:text-gray-100">
-                                    R$ 7.88
-                                </p>
-                                <Trash size={32} class='text-gray-900 cursor-pointer dark:text-gray-100' />
+                            <div id="productList" class="flex flex-col items-center justify-center w-full p-6 border border-gray-300 dark:border-gray-600">
+                                <!-- Produtos adicionados serão exibidos aqui -->
                             </div>
                         </div>
-                        <div
-                            class='flex flex-row items-center justify-between w-1/4 bg-white shadow-sm sm:rounded-lg dark:bg-gray-800'>
+                        <div class='flex flex-row items-center justify-between w-1/4 bg-white shadow-sm sm:rounded-lg dark:bg-gray-800'>
                             <div class='flex flex-col items-center justify-center w-full p-6'>
                                 <p class="p-6 text-gray-900 dark:text-gray-100">
                                     Detalhes da compra
@@ -74,3 +67,42 @@
             </div>
         </div>
 </x-app-layout>
+
+<script>
+    document.getElementById('addProductButton').addEventListener('click', function(event) {
+        event.preventDefault();
+
+        const productSelect = document.getElementById('productSelect');
+        const quantityInput = document.getElementById('quantityInput');
+        const productList = document.getElementById('productList');
+
+        // Obtenha o produto selecionado e a quantidade
+        const selectedOption = productSelect.options[productSelect.selectedIndex];
+        const productName = selectedOption.textContent.split('-')[0].trim();
+        const productPrice = parseFloat(selectedOption.getAttribute('data-price'));
+        const quantity = parseInt(quantityInput.value) || 1;
+        const totalPrice = (productPrice * quantity).toFixed(2);
+
+        // Cria o novo item de produto com o layout desejado
+        const productItem = document.createElement('div');
+        productItem.classList.add('flex', 'flex-row', 'items-center', 'justify-between', 'w-3/4', 'h-32', 'px-6', 'bg-white', 'shadow-sm', 'sm:rounded-lg', 'dark:bg-gray-800', 'mt-4');
+        productItem.innerHTML = `
+            <img src="https://picsum.photos/200/300" class="w-32 h-32 p-4 rounded-full" alt="" />
+            <p class="p-6 text-gray-900 dark:text-gray-100">${productName}</p>
+            <p class="p-6 text-gray-900 dark:text-gray-100">
+                <input type="number" value="${quantity}" class="text-white bg-gray-600 rounded w-16" />
+            </p>
+            <p class="p-6 text-gray-900 dark:text-gray-100">R$ ${totalPrice}</p>
+            <button class="text-gray-900 dark:text-gray-100 cursor-pointer" onclick="this.parentElement.remove()">
+                        <i class="ph ph-trash text-gray-900 dark:text-gray-100 cursor-pointer"></i>
+            </button>
+        `;
+
+        // Adiciona o item à lista de produtos
+        productList.appendChild(productItem);
+
+        // Limpa os campos
+        productSelect.selectedIndex = 0;
+        quantityInput.value = '';
+    });
+</script>

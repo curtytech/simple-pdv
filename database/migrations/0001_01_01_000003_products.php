@@ -14,8 +14,9 @@ return new class extends Migration
             $table->id();
             $table->integer('barcode')->notNull();
             $table->string('name')->index();
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->string('image')->nullable();
+            $table->integer('stock')->nullable();
             $table->boolean('status')->default(true);
             $table->decimal('sell_price', 8, 2); // Melhor precisão para valores monetários
             // $table->unsignedTinyInteger('attempts');

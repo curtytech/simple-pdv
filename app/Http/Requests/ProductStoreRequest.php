@@ -26,7 +26,7 @@ class ProductStoreRequest extends FormRequest
             'sell_price' => 'required|numeric|min:0',
             'description' => 'nullable|string',
             'barcode' => 'nullable|integer',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ];
     }
 
@@ -37,9 +37,7 @@ class ProductStoreRequest extends FormRequest
             'name.max' => 'O nome do produto não pode ter mais que 255 caracteres.',
             'sell_price.required' => 'O preço de venda do produto é obrigatório.',
             'sell_price.min' => 'O preço de venda do produto deve ser maior que zero.',
-            'description.nullable' => 'A descrição do produto é obrigatória.',
             'barcode.nullable' => 'O código de barras do produto é obrigatório.',
-            'image.required' => 'A imagem do produto é obrigatória.',
         ];
     }
 }

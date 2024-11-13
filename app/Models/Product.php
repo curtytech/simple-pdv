@@ -13,5 +13,7 @@ class Product extends Model
         'sell_price',
         'barcode',
         'image',
+        'status',
+        'stock',
     ];     
 }

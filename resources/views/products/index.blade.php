@@ -19,7 +19,7 @@
                     <table class="min-w-full bg-white dark:bg-gray-800">
                         <thead>
                             <tr class="text-gray-800 bg-gray-200 dark:bg-gray-700 dark:text-gray-200">
-                                <th class="px-4 py-2 text-center">Nome</th>
+                                <th class="px-4 py-2 text-start">Imagem - Nome</th>
                                 <th class="px-4 py-2 text-center">Preço</th>
                                 <th class="px-4 py-2 text-center">Descrição</th>
                                 <th class="px-4 py-2 text-center">Código de Barras</th>
@@ -27,27 +27,28 @@
                             </tr>
                         </thead>
 
-                        <tbody class="text-gray-600 dark:text-gray-300">
+                        <tbody class="text-gray-600 dark:text-gray-300 ">
                             @foreach ($data as $row)
-                            <tr class="hover:bg-gray-100 dark:hover:bg-gray-600">
-                                <td class="px-4 text-center py-2 border-b border-gray-300">
-                                    {{ $row->name }}
+                            <tr class="hover:bg-gray-100 dark:hover:bg-gray-600 ">
+                                <td class="flex gap-7 items-center justify-start px-4 py-2 ">
+                                <img src="{{ Storage::url($row->image) }}" alt="{{ $row->name }}" class="w-12 h-12 object-cover rounded-full">
+                                {{ $row->name }}
                                 </td>
 
-                                <td class="px-4 text-center py-2 border-b border-gray-300">
+                                <td class="px-4 text-center py-2 ">
                                     R$ {{ number_format($row->sell_price, 2, ',', '.') }}
                                 </td>
 
-                                <td class="px-4 text-center py-2 border-b border-gray-300">
+                                <td class="px-4 text-center py-2 ">
                                     {{ $row->description }}
                                 </td>
 
-                                <td class="px-4 text-center py-2 border-b border-gray-300">
+                                <td class="px-4 text-center py-2 ">
                                     {{ $row->barcode }}
                                 </td>
-                                <td class="flex gap-3 text-center border-b border-gray-300 justify-center">
+                                <td class="px-4 text-center py-2 ">
                                     <a @click="currentProduct = {{ json_encode($row) }}; openEdit = true"
-                                        class="my-2 px-4 py-1 cursor-pointer font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+                                        class="px-4 py-1 cursor-pointer font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
                                         <i class="ph ph-pencil"></i>
                                         Editar
                                     </a>
@@ -95,11 +96,7 @@
                                 </template>
                                 <template x-if="files === null">
                                     <div class="flex flex-col space-y-1 items-center justify-center" title="Arraste ou selecione uma imagem.">
-                                        <i class="ph ph-cloud-arrow-up text-5xl text-white"></i>
-                                        <!-- <p class="text-base text-white">Arraste ou selecione uma imagem.</p> -->
-                                        <!-- <a href="javascript:void(0)"
-                                                class="flex items-center mx-auto py-2 px-4 text-white text-center font-medium border border-transparent rounded-md outline-none bg-red-700">Select
-                                                a file</a> -->
+                                        <i class="ph ph-cloud-arrow-up text-5xl text-white"></i>                                     
                                     </div>
                                 </template>
                             </div>
@@ -195,8 +192,7 @@
                             </div>
                         </div>
                         <div class="w-3/4">
-                            <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-gray-300">Nome do
-                                Produto</label>
+                            <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-gray-300">Nome do Produto</label>
                                 <input type="text" name="name" x-model="currentProduct.name"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
                                 placeholder="Digite o nome do produto">
