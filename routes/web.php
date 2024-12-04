@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/sells/{sell}', [SellController::class, 'update'])->name('sells.update');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
+    Route::post('/sendcart', [CartController::class, 'sendcart'])->name('sendcart');
+
 });
 
 require __DIR__ . '/auth.php';

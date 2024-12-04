@@ -54,6 +54,11 @@ class BuyController extends Controller
         $buy->buy_price = $validatedData['buy_price'];
         $buy->save();
 
+        // Atualiza o estoque do produto
+        $product = Product::find($validatedData['product_id']);
+        $product->stock += $validatedData['quantity'];
+        $product->save();
+
         // Redireciona com mensagem de sucesso
         return redirect()->route('buys')->with('success', 'Produto criado com sucesso!');
     }

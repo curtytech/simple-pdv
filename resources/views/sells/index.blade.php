@@ -16,25 +16,29 @@
                     <table class="min-w-full bg-white dark:bg-gray-800">
                         <thead>
                             <tr class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                                <th class="py-2 px-4 text-center">Vendido por</th>
                                 <th class="py-2 px-4 text-center">Produto</th>
-                                <th class="py-2 px-4 text-center">Comprador</th>
                                 <th class="py-2 px-4 text-center">Preço</th>
                                 <th class="py-2 px-4 text-center">Quantidade</th>
-                                <th class="py-2 px-4 text-center">Ação</th>
+                                <th class="py-2 px-4 text-center">Data</th>
+                                <th class="py-2 px-4 text-center">Total</th>
+                                <!-- <th class="py-2 px-4 text-center">Ação</th> -->
                             </tr>
                         </thead>
                         <tbody class="text-gray-600 dark:text-gray-300">
                             @foreach ($data as $row)
                             <tr class="hover:bg-gray-100 dark:hover:bg-gray-600">
-                                <td class="py-2 px-4 text-center border-b border-gray-300">{{ $row->product->name }}</td>
                                 <td class="py-2 px-4 text-center border-b border-gray-300">{{ $row->user->name }}</td>
-                                <td class="py-2 px-4 text-center border-b border-gray-300">R$: {{ number_format($row->buy_price, 2, ',', '.') }}</td>
+                                <td class="py-2 px-4 text-center border-b border-gray-300">{{ $row->product->name }}</td>
+                                <td class="py-2 px-4 text-center border-b border-gray-300">R$: {{ number_format($row->sell_price, 2, ',', '.') }}</td>
                                 <td class="py-2 px-4 text-center border-b border-gray-300">{{ $row->quantity }}</td>
-                                <td class="flex gap-3 border-b border-gray-300 justify-center">
+                                <td class="py-2 px-4 text-center border-b border-gray-300">{{ $row->created_at->format('d/m/Y') }}</td>
+                                <td class="py-2 px-4 text-center border-b border-gray-300">R$: {{ number_format($row->quantity * $row->sell_price, 2, ',', '.') }}</td>
+                                <!-- <td class="flex gap-3 border-b border-gray-300 justify-center">
                                     <a @click="currentProduct = {{ json_encode($row) }}; openEdit = true" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                         <i class="ph ph-pencil"></i> Editar
                                     </a>                                   
-                                </td>
+                                </td> -->
                             </tr>
                             @endforeach
                         </tbody>
