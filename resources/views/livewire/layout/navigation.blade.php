@@ -23,8 +23,8 @@ new class extends Component {
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
                     <a href="{{ route('dashboard') }}" wire:navigate>
-                        <x-application-logo class="block w-auto text-gray-800 fill-current h-9 dark:text-gray-200" />
-                    </a>
+                        <!-- <x-application-logo class="block w-auto text-gray-800 fill-current h-9 dark:text-gray-200" /> -->
+                        <img class="rounded-full block w-auto fill-current h-14" src="{{ asset('cartLogo.jpg') }}" alt=""> </a>
                 </div>
 
                 <!-- Navigation Links -->
