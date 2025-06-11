@@ -33,7 +33,7 @@ new #[Layout('layouts.guest')] class extends Component
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>PDV</title>
+    <title>Simple PDV</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
