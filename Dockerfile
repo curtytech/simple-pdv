@@ -25,10 +25,10 @@ RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www
 # Expõe porta
 EXPOSE 8000
 
-# Migrate
-CMD php artisan migrate --force
 
-# Comando para iniciar o servidor
-CMD php artisan serve --host=0.0.0.0 --port=8000
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
