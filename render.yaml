@@ -16,12 +16,12 @@ services:
       - key: DB_CONNECTION
         value: mysql
       - key: DB_HOST
-        value: seu-host
+        value: habilidade.tech
       - key: DB_PORT
         value: 3306
       - key: DB_DATABASE
-        value: nome-banco
+        value: u233139548_simple_pdv
       - key: DB_USERNAME
-        value: usuario
+        value: u233139548_simple_pdv
       - key: DB_PASSWORD
         sync: false   # marca como secreta, você coloca no painel depois
