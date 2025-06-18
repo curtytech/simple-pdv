@@ -25,8 +25,5 @@ RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www
 # Expõe porta
 EXPOSE 8000
 
-# Gera key e link storage
-RUN php artisan key:generate && php artisan storage:link
-
 # Comando para iniciar o servidor
 CMD php artisan serve --host=0.0.0.0 --port=8000
