@@ -1,27 +1,27 @@
 services:
   - type: web
-    name: laravel-app
+    name: simple-pdv
     env: docker
     plan: free
     dockerfilePath: ./Dockerfile
     envVars:
       - key: APP_ENV
         value: production
-      - key: APP_KEY
-        sync: false
       - key: APP_DEBUG
         value: false
       - key: APP_URL
-        value: https://laravel-app.onrender.com
+        value: https://simple-pdv.onrender.com
+      - key: APP_KEY
+        value: base64:QLAodb0FppIcOE3cfY3gNUuCS83C/f7jUZ/q+nbqqsM=   
       - key: DB_CONNECTION
         value: mysql
       - key: DB_HOST
-        value: seuhost
+        value: seu-host
       - key: DB_PORT
         value: 3306
       - key: DB_DATABASE
-        value: suabase
+        value: nome-banco
       - key: DB_USERNAME
-        value: seuusuario
+        value: usuario
       - key: DB_PASSWORD
-        sync: false
+        sync: false   # marca como secreta, você coloca no painel depois
